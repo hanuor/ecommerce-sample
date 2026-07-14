@@ -1,23 +1,13 @@
 from fastapi import FastAPI
 
+from app.api.admin import router as admin_router
 from app.api.cart import router as cart_router
 from app.api.checkout import router as checkout_router
-from app.api.admin import router as admin_router
 
 app = FastAPI(
     title="E-Commerce Store",
     version="1.0.0",
-    description="Shopping Cart & Discount System",
 )
-
-
-@app.get("/", tags=["Health"])
-async def health_check():
-    return {
-        "status": "healthy",
-        "service": "ecommerce-store"
-    }
-
 
 app.include_router(
     cart_router,
@@ -36,3 +26,8 @@ app.include_router(
     prefix="/admin",
     tags=["Admin"]
 )
+
+
+# @app.get("/")
+# async def health():
+#     return {"status": "healthy"}

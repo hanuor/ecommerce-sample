@@ -2,7 +2,7 @@ from typing import List
 
 from fastapi import APIRouter
 
-from app.schemas.schema import (
+from app.schemas import (
     ProductCreate,
     ProductResponse,
     CouponResponse,
