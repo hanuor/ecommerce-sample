@@ -53,7 +53,6 @@ class CartRepository:
         )
 
     @staticmethod
-    @staticmethod
     def get_cart(user_id: int):
 
         return redis_client.hgetall(
