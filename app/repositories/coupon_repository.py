@@ -98,3 +98,18 @@ class CouponRepository:
         )
 
         return True
+        
+    @staticmethod
+    def validate_coupon(code: str):
+
+        key = f"coupon:{code}"
+
+        coupon = redis_client.hgetall(key)
+
+        if not coupon:
+            return None
+
+        if coupon["used"] == "true":
+            return None
+
+        return coupon
