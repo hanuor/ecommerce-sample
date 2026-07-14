@@ -53,48 +53,54 @@ class CartRepository:
         )
 
     @staticmethod
-    def get_cart(user_id: int) -> CartResponse:
-        """
-        Returns complete cart.
-        """
+    @staticmethod
+    def get_cart(user_id: int):
 
-        key = f"cart:{user_id}"
-
-        cart = redis_client.hgetall(key)
-
-        items: List[CartItem] = []
-
-        subtotal = 0
-
-        for product_id, quantity in cart.items():
-
-            product = ProductRepository.get_product(
-                int(product_id)
-            )
-
-            if product is None:
-                continue
-
-            quantity = int(quantity)
-
-            total_price = quantity * product.price
-
-            subtotal += total_price
-
-            items.append(
-                CartItem(
-                    product_id=product.id,
-                    quantity=quantity,
-                    price=product.price,
-                    total_price=total_price,
-                )
-            )
-
-        return CartResponse(
-            user_id=user_id,
-            items=items,
-            subtotal=subtotal,
+        return redis_client.hgetall(
+            f"cart:{user_id}"
         )
+    # def get_cart(user_id: int) -> CartResponse:
+    #     """
+    #     Returns complete cart.
+    #     """
+
+    #     key = f"cart:{user_id}"
+
+    #     cart = redis_client.hgetall(key)
+
+    #     items: List[CartItem] = []
+
+    #     subtotal = 0
+
+    #     for product_id, quantity in cart.items():
+
+    #         product = ProductRepository.get_product(
+    #             int(product_id)
+    #         )
+
+    #         if product is None:
+    #             continue
+
+    #         quantity = int(quantity)
+
+    #         total_price = quantity * product.price
+
+    #         subtotal += total_price
+
+    #         items.append(
+    #             CartItem(
+    #                 product_id=product.id,
+    #                 quantity=quantity,
+    #                 price=product.price,
+    #                 total_price=total_price,
+    #             )
+    #         )
+
+    #     return CartResponse(
+    #         user_id=user_id,
+    #         items=items,
+    #         subtotal=subtotal,
+    #     )
 
     @staticmethod
     def is_empty(user_id: int) -> bool:

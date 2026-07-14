@@ -4,6 +4,8 @@ from app.api.admin import router as admin_router
 from app.api.cart import router as cart_router
 from app.api.checkout import router as checkout_router
 
+from app.services.admin_service import AdminService
+
 app = FastAPI(
     title="E-Commerce Store",
     version="1.0.0",

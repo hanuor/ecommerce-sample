@@ -5,11 +5,11 @@ from app.schemas import (
     CartResponse,
 )
 
-# from app.services.cart_service import CartService
+from app.services.cart_service import CartService
 
 router = APIRouter()
 
-# cart_service = CartService()
+cart_service = CartService()
 
 
 @router.post(
@@ -27,12 +27,12 @@ async def add_item_to_cart(request: AddToCartRequest):
     """
 
     # return await cart_service.add_item(request)
-
-    return CartResponse(
-        user_id=request.user_id,
-        items=[],
-        subtotal=0
-    )
+    return CartService.add_item(request)
+    # return CartResponse(
+    #     user_id=request.user_id,
+    #     items=[],
+    #     subtotal=0
+    # )
 
 
 @router.get(
@@ -46,12 +46,12 @@ async def get_cart(user_id: int):
     """
 
     # return await cart_service.get_cart(user_id)
-
-    return CartResponse(
-        user_id=user_id,
-        items=[],
-        subtotal=0
-    )
+    return CartService.get_cart(user_id)
+    # return CartResponse(
+    #     user_id=user_id,
+    #     items=[],
+    #     subtotal=0
+    # )
 
 
 @router.delete(
@@ -68,12 +68,12 @@ async def remove_item_from_cart(
     """
 
     # return await cart_service.remove_item(user_id, product_id)
-
-    return CartResponse(
-        user_id=user_id,
-        items=[],
-        subtotal=0
-    )
+    return CartService.remove_item(user_id, product_id)
+    # return CartResponse(
+    #     user_id=user_id,
+    #     items=[],
+    #     subtotal=0
+    # )
 
 
 @router.delete(
@@ -85,7 +85,7 @@ async def clear_cart(user_id: int):
     """
     Remove all items from the user's cart.
     """
-
+    CartService.clear_cart(user_id)
     # await cart_service.clear_cart(user_id)
 
     return
